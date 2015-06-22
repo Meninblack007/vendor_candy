@@ -1,3 +1,4 @@
+add_lunch_combo candy5_amami-userdebug
 add_lunch_combo candy5_bacon-userdebug
 add_lunch_combo candy5_d850-userdebug
 add_lunch_combo candy5_d851-userdebug
@@ -9,21 +10,26 @@ add_lunch_combo candy5_flo-userdebug
 add_lunch_combo candy5_flounder-userdebug
 add_lunch_combo candy5_grouper-userdebug
 add_lunch_combo candy5_hammerhead-userdebug
+add_lunch_combo candy5_honami-userdebug
 add_lunch_combo candy5_ls990-userdebug
 add_lunch_combo candy5_m7-userdebug
 add_lunch_combo candy5_m7spr-userdebug
 add_lunch_combo candy5_m7vzw-userdebug
 add_lunch_combo candy5_m8-userdebug
 add_lunch_combo candy5_mako-userdebug
+add_lunch_combo candy5_odin-userdebug
+add_lunch_combo candy5_pollux_windy-userdebug
 add_lunch_combo candy5_quincyatt-userdebug
+add_lunch_combo candy5_sirius-userdebug
 add_lunch_combo candy5_skyrocket-userdebug
 add_lunch_combo candy5_t6-userdebug
 add_lunch_combo candy5_t6dwg-userdebug
 add_lunch_combo candy5_t6spr-userdebug
 add_lunch_combo candy5_t6vzw-userdebug
+add_lunch_combo candy5_taoshan-userdebug
+add_lunch_combo candy5_titan-userdebug
+add_lunch_combo candy5_togari-userdebug
+add_lunch_combo candy5_togari_gpe-userdebug
 add_lunch_combo candy5_v410-userdebug
-
-
-
-
-
+add_lunch_combo candy5_yuga-userdebug
+add_lunch_combo candy5_z3-userdebug

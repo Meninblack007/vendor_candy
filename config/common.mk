@@ -96,6 +96,10 @@ PRODUCT_COPY_FILES += \
     vendor/candy5/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
     vendor/candy5/prebuilt/common/bin/sysinit:system/bin/sysinit
 
+# Proprietary latinime lib needed for Keyboard swyping
+PRODUCT_COPY_FILES += \
+    vendor/candy5/prebuilt/lib/libjni_latinimegoogle.so:system/lib/libjni_latinimegoogle.so
+
 # userinit support
 PRODUCT_COPY_FILES += \
     vendor/candy5/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit
@@ -142,6 +146,7 @@ PRODUCT_PACKAGES += \
     Trebuchet \
     AudioFX \
     Eleven \
+    CandyOTA \
     LockClock   
 
 # CM Platform Library
@@ -199,7 +204,7 @@ PRODUCT_PACKAGES += \
     libstagefright_soft_ffmpegadec \
     libstagefright_soft_ffmpegvdec \
     libFFmpegExtractor \
-    libnamparser
+    media_codecs_ffmpeg.xml
 
 # These packages are excluded from user builds
 ifneq ($(TARGET_BUILD_VARIANT),user)
@@ -241,8 +246,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGE_OVERLAYS += vendor/candy5/overlay/common
 
 PRODUCT_VERSION_MAJOR = release
-PRODUCT_VERSION_MINOR = v2.5.4
-PRODUCT_VERSION_MAINTENANCE = v2.5.4
+PRODUCT_VERSION_MINOR = v2.5.6
+PRODUCT_VERSION_MAINTENANCE = v2.5.6
 
 # Set CM_BUILDTYPE from the env RELEASE_TYPE, for jenkins compat
 
@@ -348,8 +353,44 @@ endif
 # by default, do not update the recovery with system updates
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.recovery_update=false
 
+ifndef CM_PLATFORM_SDK_VERSION
+  # This is the canonical definition of the SDK version, which defines
+  # the set of APIs and functionality available in the platform.  It
+  # is a single integer that increases monotonically as updates to
+  # the SDK are released.  It should only be incremented when the APIs for
+  # the new release are frozen (so that developers don't write apps against
+  # intermediate builds).
+  CM_PLATFORM_SDK_VERSION := 1
+endif
+
 PRODUCT_PROPERTY_OVERRIDES += \
   ro.candy5.display.version=$(candy5_DISPLAY_VERSION)
+
+
+# CyanogenMod Platform SDK Version
+PRODUCT_PROPERTY_OVERRIDES += \
+  ro.cm.build.version.plat.sdk=$(CM_PLATFORM_SDK_VERSION)
+
+# OTA Updater
+CANDY_BASE_URL    := https://basketbuild.com/dl/devs?dl=CandyRoms
+CANDY_DEVICE_URL  := $(CANDY_BASE_URL)/$(candy5_BUILD)
+CANDY_OTA_VERSION := $(shell date +%Y%m%d)
+CANDY_ROM_NAME    := CandyRoms
+
+# Lib For Webview
+PRODUCT_COPY_FILES += \
+vendor/candy5/prebuilt/lib/armeabi-v7a/libbypass.so:system/lib/libbypass.so
+
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.ota.candyroms=$(CANDY_ROM_NAME) \
+    ro.candyroms.version=$(CANDY_OTA_VERSION) \
+    ro.ota.manifest=$(CANDY_DEVICE_URL)/ota.xml \
+ 
+export CANDY_OTA_ROM=$(CANDY_ROM_NAME)
+export CANDY_OTA_VERNAME=$(candy5_DISPLAY_VERSION)
+export CANDY_OTA_VER=$(CANDY_OTA_VERSION)
+export CANDY_OTA_URL=$(CANDY_DEVICE_URL)/candy5-$(candy5_DISPLAY_VERSION).zip
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
 
