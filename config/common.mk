@@ -378,9 +378,16 @@ CANDY_OTA_VERSION := $(shell date +%Y%m%d)
 CANDY_ROM_NAME    := CandyRoms
 
 # Lib For Webview
-PRODUCT_COPY_FILES += \
-vendor/candy5/prebuilt/lib/armeabi-v7a/libbypass.so:system/lib/libbypass.so
+ifeq ($(TARGET_IS_64_BIT),true)
+TARGET_ARCH_ABI := arm64-v8a
+TARGET_LIB_DIR := lib64
+else
+TARGET_ARCH_ABI := armeabi-v7a
+TARGET_LIB_DIR := lib
+endif
 
+PRODUCT_COPY_FILES += \
+vendor/candy5/prebuilt/lib/$(TARGET_ARCH_ABI)/libbypass.so:system/$(TARGET_LIB_DIR)/libbypass.so
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ota.candyroms=$(CANDY_ROM_NAME) \
